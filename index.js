@@ -10,7 +10,7 @@ app.get('/', (req, res)=> {
   });
 io.on('connection', (socket)=>{
     socket.on('node chat', (msg)=>{
-        console.log('message: ' + msg );
+        console.log('messages: ' + msg );
         io.emit('node chat', msg);
     })
 });
