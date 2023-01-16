@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en>">
+
+<head>
+    <title>NodeJs Chat</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color:whitesmoke;
+        }
+
+        .txt-center {
+            text-align: center;
+            font-family: 'sarabun', cursive !important;
+            font-size: 50px;
+
+        }
+        .txt-center [type=submit] {
+            background-color: #000000;
+            border: none;
+            color: white;
+            padding: 7px 10px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+        .txt-center #input{
+            font-size: 20px;
+        }
+
+        h1 {
+            color: rgb(91, 91, 91);
+        }
+        ul li{
+            text-align: center;
+            margin: 0;
+            font-size: 20px;
+            list-style-type: none;
+        }
+        span{
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container ">
+        <h1 class="txt-center">Node<span>Js</span> Chat</h1>
+        <form id="form">
+            <div class="txt-center">
+                <input id="input" />
+                <button onclick="" type="submit">Send </button>
+            </div>
+        </form>
+        <ul id="massages"></ul>
+    </div>
+
+    <script src=/socket.io/socket.io.js></script>
+    <script>
+        var socket = io();
+        var form = document.getElementById("form");
+        var input = document.getElementById("input");
+        var massages = document.getElementById("massages");
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        })
+        socket.on('chat message', function (msg) {
+            var txt = document.createElement('li');
+            txt.textContent = "message : "+ msg;
+            massages.appendChild(txt);
+        })
+    </script>
+
+</body>
+
+</html>
